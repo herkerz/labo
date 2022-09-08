@@ -25,9 +25,9 @@ ksemillas  <- c(694649, 390101, 483139, 279679, 524743,
 
 hs  <- makeParamSet(
   makeNumericParam("cp"       , lower= -1   , upper=    -.9),
-  makeIntegerParam("minsplit" , lower=  1L  , upper= 1200L),  #la letra L al final significa ENTERO
+  makeIntegerParam("minsplit" , lower=  200L  , upper= 1200L),  #la letra L al final significa ENTERO
   makeIntegerParam("minbucket", lower=  1L  , upper= 1L),
-  makeIntegerParam("maxdepth" , lower=  75L  , upper=   13L),
+  makeIntegerParam("maxdepth" , lower=  7L  , upper=   13L),
   forbidden = quote( minbucket > 0.5*minsplit ) )             # minbuket NO PUEDE ser mayor que la mitad de minsplit
 
 
