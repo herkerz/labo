@@ -1,7 +1,4 @@
 import numpy as np
-from statsmodels.sandbox.stats.runs import runstest_1samp 
-import random
-import matplotlib.pyplot as plt
 
 def ftirar(prob, qty):
   return sum(np.random.rand(qty) < prob)
