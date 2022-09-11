@@ -40,7 +40,7 @@ def compare_surface(urls: list, max_depths: list):
         surf._edgecolors2d = surf._edgecolor3d
         ax.legend()
         
-    ax.set_title(f'Ganancia Optimizacion Bayesiana Max Depth {max_depth}')
+    ax.set_title('Ganancia Optimizacion Bayesiana')
     ax.set_xlabel("minbucket")
     ax.set_ylabel("minsplit")
     ax.set_zlabel("Ganancia")
@@ -50,15 +50,15 @@ def compare_surface(urls: list, max_depths: list):
     
 url = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_7_8.txt"
 
-# plot_surface(url, 8)
+plot_surface(url, 8)
 
-url_zoom = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_7_8_zoom.txt"
+url_zoom = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_9_10.txt"
 
-# plot_surface(url_zoom, 8)
+plot_surface(url_zoom, 10)
 
 
 url_14= "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_13_14.txt"
 
-# plot_surface(url_14, 14)
+plot_surface(url_14, 14)
 
 compare_surface([url,url_14],[8,14])
