@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-import matplotlib.dates as mdates
+import seaborn as sns
 
 def plot_surface(url: str, max_depth: int):
     df = pd.read_table(url,parse_dates=["fecha"])
@@ -10,7 +10,7 @@ def plot_surface(url: str, max_depth: int):
     y = df["minbucket"]
     z = df["ganancia"]
     
-    ax = plt.axes(projection='3d')
+    ax = plt.axes(projection='3d',)
 
     ax.plot_trisurf(x, y, z,
                     cmap="viridis",
@@ -48,17 +48,43 @@ def compare_surface(urls: list, max_depths: list):
         
         
     
-url = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_7_8.txt"
+# url = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_7_8.txt"
 
-plot_surface(url, 8)
+# plot_surface(url, 8)
 
-url_zoom = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_9_10.txt"
+url_9 = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_9_10.txt"
 
-plot_surface(url_zoom, 10)
+plot_surface(url_9, 9)
 
 
-url_14= "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_13_14.txt"
+# url_14= "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_13_14.txt"
 
-plot_surface(url_14, 14)
+# plot_surface(url_14, 14)
 
-compare_surface([url,url_14],[8,14])
+# compare_surface([url_14,url_zoom],[14,10])
+
+df = pd.read_table(url_9,parse_dates=["fecha"])
+
+
+fig, (ax1,ax2) = plt.subplots(nrows=2,
+                              ncols=1,
+                              figsize=(18,12),
+                              sharex=True)
+
+
+sns.scatterplot(x= range(len(df)), 
+                y=df["minsplit"],
+                size=df["minbucket"],
+                hue=df["maxdepth"],
+                palette=['darkgray', 'darkgreen'],
+                ax = ax1)
+
+ax1.set_title("Iteration Nº")
+
+sns.lineplot(x=range(len(df)),
+            y=df["ganancia"].rolling(15).mean(),
+            ax= ax2,
+            c= "k")
+ax2.set_title("Ganancia por iteracion")
+ax2.set_xlabel("Iteracion Nº")
+plt.show()
