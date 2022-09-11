@@ -2,7 +2,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.dates as mdates
 
-df = pd.read_table(r"C:\\Users\\hgker\\Desktop\\master_ds\\mineria\\baye_max_depth_7_8.txt",parse_dates=["fecha"])
+
+url = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_7_8_zoom.txt"
+df = pd.read_table(url,parse_dates=["fecha"])
 
 # df_7 = df[df.maxdepth==7]
 
@@ -31,8 +33,9 @@ df = pd.read_table(r"C:\\Users\\hgker\\Desktop\\master_ds\\mineria\\baye_max_dep
 # ax.set_zlabel("ganancia")
 # plt.show()
 
+url_zoom = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_7_8_zoom.txt"
 
-df_zoom = pd.read_table(r"C:\\Users\\hgker\\Desktop\\master_ds\\mineria\\baye_max_depth_7_8_zoom.txt",parse_dates=["fecha"])
+df_zoom = pd.read_table(url_zoom,parse_dates=["fecha"])
 
 df_8z = df_zoom[df_zoom.maxdepth==8]
 
