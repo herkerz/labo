@@ -17,8 +17,8 @@ def plot_surface(url: str, max_depth: int):
                     alpha=0.9)
 
     ax.set_title(f'Ganancia Optimizacion Bayesiana Max Depth {max_depth}')
-    ax.set_xlabel("minbucket")
-    ax.set_ylabel("minsplit")
+    ax.set_xlabel("minsplit")
+    ax.set_ylabel("minbucket")
     ax.set_zlabel("Ganancia")
     plt.show()   
 
