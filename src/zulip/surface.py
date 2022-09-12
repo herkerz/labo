@@ -71,15 +71,37 @@ def bayesian_analysis(url: str):
     ax2.set_title("Ganancia por iteracion")
     ax2.set_xlabel("Iteracion Nº")
     plt.show()        
+
+def plot_surface_maxdepth_libre(url: str):
+    df = pd.read_table(url,parse_dates=["fecha"])
+   
+    x = df["minsplit"]
+    y = df["maxdepth"]
+    z = df["ganancia"]
+    
+    ax = plt.axes(projection='3d')
+
+    ax.plot_trisurf(x, y, z,
+                    cmap="viridis",
+                    alpha=0.9)
+
+    ax.set_title(f'Ganancia Optimizacion Bayesiana Max Depth Libre')
+    ax.set_xlabel("minsplit")
+    ax.set_ylabel("maxdepth")
+    ax.set_zlabel("Ganancia")
+    plt.show()   
+
         
 url = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_7_8.txt"
 
 # plot_surface(url, 8)
 
 url_9 = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_9_10.txt"
+url_maxdepth_libre = "https://raw.githubusercontent.com/herkerz/labo/main/src/zulip/data/baye_max_depth_libre.txt"
 
-plot_surface(url_9, 9)
-bayesian_analysis(url_9)
 
+# plot_surface(url_9, 9)
+# bayesian_analysis(url_9)
+plot_surface_maxdepth_libre(url_maxdepth_libre)
 # compare_surface([url,url_9],[7,9])
 
