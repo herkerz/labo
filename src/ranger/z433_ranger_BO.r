@@ -90,8 +90,8 @@ ranger_Simple  <- function( fold_test, pdata, param )
   prediccion  <- predict( modelo, pdata[ fold == fold_test] )
 
   ganancia_testing  <- pdata[ fold==fold_test,
-                              sum( (prediccion$predictions[ ,"POS" ] > 1/60) *
-                                    ifelse( clase_binaria=="POS", 59000, -1000)  ) ]
+                              sum( (prediccion$predictions[ ,"POS" ] > 1/40) *
+                                    ifelse( clase_binaria=="POS", 78000, -2000)  ) ]
 
   return( ganancia_testing )
 }
@@ -149,6 +149,7 @@ setwd("~/buckets/b1/")   #Establezco el Working Directory
 
 #cargo el dataset donde voy a entrenar el modelo
 dataset  <- fread("./datasets/competencia1_2022.csv", stringsAsFactors= TRUE)   #donde entreno
+dataset  <- dataset[ foto_mes==202101 ]
 
 
 #creo la carpeta donde va el experimento
