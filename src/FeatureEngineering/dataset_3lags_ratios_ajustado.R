@@ -673,13 +673,32 @@ add_ratios <- function(dataset, cantidad_importantes = 10){
   mas_importantes <- head(tb_importancia[,Feature],cantidad_importantes)
   col_names <- combn(mas_importantes, 2, paste, collapse = "___")
   
+  
+  ratios <- combn(dataset[,..mas_importantes],
+                  2,
+                  function(x)x[[1]]/x[[2]])
+  
+  colnames(ratios) <- col_names
+  
   ratios[is.infinite(ratios)] <- NA
   ratios[is.nan(ratios)] <- 0
   
+  mas_importantes <- head(tb_importancia[,Feature],30)
+  col_names2 <- combn(mas_importantes, 3, paste, collapse = "___")
   
-  return (cbind(dataset,ratios))
+  
+  ratios2 <- combn(dataset[,..mas_importantes],
+                   3,
+                   function(x)x[[1]]/(x[[2]] + x[[3]] ))
+  
+  colnames(ratios2) <- col_names2
+  
+  ratios2[is.infinite(ratio2s)] <- NA
+  ratios2[is.nan(ratios2)] <- 0
+  
+  
+  return (cbind(dataset,ratios,ratios2))
 }
-
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
