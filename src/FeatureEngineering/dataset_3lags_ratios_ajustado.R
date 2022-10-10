@@ -615,6 +615,12 @@ ajustar_valores <- function(dataset )
   
   dataset <- dataset[,(columnas_ajustables[columnas_ajustables_pesos]) := lapply(.SD, function(x) x * get("ipc")), .SDcols = columnas_ajustables[columnas_ajustables_pesos] ]
   dataset <- dataset[,(columnas_ajustables[!columnas_ajustables_pesos]) := lapply(.SD, function(x) x / get("oficial")), .SDcols = columnas_ajustables[!columnas_ajustables_pesos] ]
+  
+  dataset[, ipc := NULL]
+  dataset[, oficial := NULL]
+  dataset[, cvs := NULL]
+  dataset[, blue := NULL]
+  
   return(dataset)
   
 }
@@ -683,7 +689,7 @@ add_ratios <- function(dataset, cantidad_importantes = 10){
   ratios[is.infinite(ratios)] <- NA
   ratios[is.nan(ratios)] <- 0
   
-  mas_importantes <- head(tb_importancia[,Feature],30)
+  mas_importantes <- head(tb_importancia[,Feature],15)
   col_names2 <- combn(mas_importantes, 3, paste, collapse = "___")
   
   
@@ -786,7 +792,7 @@ TendenciaYmuchomas( dataset,
 
 CanaritosAsesinos( canaritos_ratio = 0.3 )
 
-dataset <- add_ratios(dataset, 60)
+dataset <- add_ratios(dataset, 40)
 
 CanaritosAsesinos( canaritos_ratio = 0.3 )
 
@@ -810,6 +816,6 @@ ncol( dataset )
 #------------------------------------------------------------------------------
 #grabo el dataset
 fwrite( dataset,
-        "dataset_3lags_ratios_ajustado.csv.gz",
+        "dataset_3lags_doble_ratios_ajustado_v2.csv.gz",
         logical01= TRUE,
         sep= "," )
