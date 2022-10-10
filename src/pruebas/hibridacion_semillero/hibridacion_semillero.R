@@ -14,40 +14,43 @@ require("primes")
 require("lightgbm")
 
 
+kdataset       <- "./datasets/dataset_3lags_doble_ratios_ajustado.csv.gz"
+ksemilla_azar  <- 225533  #Aqui poner la propia semilla
+ktraining      <- c( 202101,
+                     202012,
+                     202011,
+                     202010,
+                     202009,
+                     202008)   #periodos en donde entreno
+kfuture        <- c( 202103 ) 
 
-kdataset       <- "./datasets/competencia1_2022.csv"
-ksemilla_azar  <- 102191  #Aqui poner la propia semilla
-ktraining      <- c( 202101 )   #periodos en donde entreno
-kfuture        <- c( 202103 )   #periodo donde aplico el modelo final
-
-
-kexperimento   <- "KA8440"
+kexperimento   <- "hibridacion_test"
 
 ksemilla_primos  <-  102191
-ksemillerio  <- 100
+ksemillerio  <- 1
 
 kmax_bin           <-    31
-klearning_rate     <-     0.0687538981
-knum_iterations    <-   418
-knum_leaves        <-   925
-kmin_data_in_leaf  <-  4730
-kfeature_fraction  <-     0.2759150797
+klearning_rate     <-     0.189611283
+knum_iterations    <-   390
+knum_leaves        <-   83
+kmin_data_in_leaf  <-  7840
+kfeature_fraction  <-     0.912972601
 
 
 kmax_bin_2           <-    31
-klearning_rate_2     <-     0.0687538981
-knum_iterations_2    <-   418
-knum_leaves_2        <-   925
-kmin_data_in_leaf_2  <-  4730
-kfeature_fraction_2  <-     0.2759150797
+klearning_rate_2     <-     0.03891992
+knum_iterations_2    <-   917
+knum_leaves_2        <-   165
+kmin_data_in_leaf_2  <-  6180
+kfeature_fraction_2  <-    0.854903052
 
 
 kmax_bin_3           <-    31
-klearning_rate_3     <-     0.0687538981
-knum_iterations_3    <-   418
-knum_leaves_3        <-   925
-kmin_data_in_leaf_3  <-  4730
-kfeature_fraction_3  <-     0.2759150797
+klearning_rate_3     <-     0.045172108
+knum_iterations_3    <-   711
+knum_leaves_3        <-   298
+kmin_data_in_leaf_3  <-  3420
+kfeature_fraction_3  <-    0.662340268
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
