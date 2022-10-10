@@ -14,6 +14,7 @@ require("primes")
 require("lightgbm")
 
 
+
 kdataset       <- "./datasets/dataset_3lags_doble_ratios_ajustado.csv.gz"
 ksemilla_azar  <- 225533  #Aqui poner la propia semilla
 ktraining      <- c( 202101,
@@ -22,11 +23,12 @@ ktraining      <- c( 202101,
                      202010,
                      202009,
                      202008)   #periodos en donde entreno
-kfuture        <- c( 202103 ) 
+kfuture        <- c( 202103 )   #periodo donde aplico el modelo final
+
 
 kexperimento   <- "hibridacion_test"
 
-ksemilla_primos  <-  102191
+ksemilla_primos  <-  223354
 ksemillerio  <- 1
 
 kmax_bin           <-    31
@@ -51,6 +53,7 @@ knum_iterations_3    <-   711
 knum_leaves_3        <-   298
 kmin_data_in_leaf_3  <-  3420
 kfeature_fraction_3  <-    0.662340268
+
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -119,7 +122,8 @@ for( semilla  in  ksemillas )
                                      num_leaves=         knum_leaves,
                                      min_data_in_leaf=   kmin_data_in_leaf,
                                      feature_fraction=   kfeature_fraction,
-                                     seed=               semilla
+                                     seed=               semilla,
+                                     feature_pre_filter= FALSE
                         )
   )
   
@@ -138,20 +142,21 @@ for( semilla  in  ksemillas )
   
   ########---------------------------------------------------------------------------------
   
-  modelo  <- lgb.train( data= dtrain,
-                        param= list( objective=          "binary",
-                                     max_bin=            kmax_bin_2,
-                                     learning_rate=      klearning_rate_2,
-                                     num_iterations=     knum_iterations_2,
-                                     num_leaves=         knum_leaves_2,
-                                     min_data_in_leaf=   kmin_data_in_leaf_2,
-                                     feature_fraction=   kfeature_fraction_2,
-                                     seed=               semilla
-                        )
+  modelo_2  <- lgb.train( data= dtrain,
+                          param= list( objective=          "binary",
+                                       max_bin=            kmax_bin_2,
+                                       learning_rate=      klearning_rate_2,
+                                       num_iterations=     knum_iterations_2,
+                                       num_leaves=         knum_leaves_2,
+                                       min_data_in_leaf=   kmin_data_in_leaf_2,
+                                       feature_fraction=   kfeature_fraction_2,
+                                       seed=               semilla,
+                                       feature_pre_filter= FALSE
+                          )
   )
   
   #aplico el modelo a los datos nuevos
-  prediccion  <- predict( modelo, 
+  prediccion  <- predict( modelo_2, 
                           data.matrix( dapply[, campos_buenos, with=FALSE ]) )
   
   #calculo el ranking
@@ -164,20 +169,21 @@ for( semilla  in  ksemillas )
   ########--------------------------------------------------------------------------------
   
   
-  modelo  <- lgb.train( data= dtrain,
-                        param= list( objective=          "binary",
-                                     max_bin=            kmax_bin_3,
-                                     learning_rate=      klearning_rate_3,
-                                     num_iterations=     knum_iterations_3,
-                                     num_leaves=         knum_leaves_3,
-                                     min_data_in_leaf=   kmin_data_in_leaf_3,
-                                     feature_fraction=   kfeature_fraction_3,
-                                     seed=               semilla
-                        )
+  modelo_3  <- lgb.train( data= dtrain,
+                          param= list( objective=          "binary",
+                                       max_bin=            kmax_bin_3,
+                                       learning_rate=      klearning_rate_3,
+                                       num_iterations=     knum_iterations_3,
+                                       num_leaves=         knum_leaves_3,
+                                       min_data_in_leaf=   kmin_data_in_leaf_3,
+                                       feature_fraction=   kfeature_fraction_3,
+                                       seed=               semilla,
+                                       feature_pre_filter= FALSE
+                          )
   )
   
   #aplico el modelo a los datos nuevos
-  prediccion  <- predict( modelo, 
+  prediccion  <- predict( modelo_3, 
                           data.matrix( dapply[, campos_buenos, with=FALSE ]) )
   
   #calculo el ranking
@@ -208,7 +214,7 @@ setorder( tb_entrega, -prob )
 
 #genero archivos con los  "envios" mejores
 #deben subirse "inteligentemente" a Kaggle para no malgastar submits
-cortes <- seq( 6500, 10500, by=500 )
+cortes <- seq( 8000, 10000, by=500 )
 for( envios  in  cortes )
 {
   tb_entrega[  , Predicted := 0L ]
@@ -218,4 +224,5 @@ for( envios  in  cortes )
           file= paste0(  kexperimento, "_", envios, ".csv" ),
           sep= "," )
 }
+
 
