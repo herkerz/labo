@@ -57,9 +57,8 @@ ksemilla_azar  <- c(123456,
                     999998,
                     887777
 )  #Aqui poner la propia semilla
-kexperimento   <- "bayesiana_final_7_v2_ultimo_dos_mes"
-ktraining      <- c( 202101,
-                     202012)   #periodos en donde entreno
+kexperimento   <- "bayesiana_final_6_v2_ultimo_dos_mes"
+ktraining      <- c( 202101)   #periodos en donde entreno
 
 kPOS_ganancia  <- 78000
 kNEG_ganancia  <- -2000
@@ -168,7 +167,7 @@ EstimarGanancia_lightgbm  <- function( x )
     
     cantidad_semillas <- cantidad_semillas + 1
     
-    if (ganancia_semilla < 46500000 / kfolds) break
+    if (ganancia_semilla < 26500000 / kfolds) break
     
   }
   

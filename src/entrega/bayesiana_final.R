@@ -32,29 +32,33 @@ options(error = function() {
 kBO_iter  <- 100   #cantidad de iteraciones de la Optimizacion Bayesiana
 
 # ATENCION  si NO se quiere utilizar  undersampling  se debe  usar  kundersampling <- 1.0
-kundersampling  <- 0.1   # un undersampling de 0.1  toma solo el 10% de los CONTINUA
+kundersampling  <- 0.15   # un undersampling de 0.1  toma solo el 10% de los CONTINUA
 
 prob_min  <- 0.5/( 1 + kundersampling*39)
 prob_max  <- pmin( 1.0, 4/( 1 + kundersampling*39) )
 
 #Aqui se cargan los hiperparametros
 hs <- makeParamSet( 
-  makeNumericParam("learning_rate",    lower=  0.004   , upper=    0.3),
-  makeNumericParam("feature_fraction", lower=  0.2    , upper=    1.0),
+  makeNumericParam("learning_rate",    lower=  0.002   , upper=    0.1),
+  makeNumericParam("feature_fraction", lower=  0.05    , upper=    0.5),
   makeNumericParam("perc_min_data_in_leaf", lower=  0.0001      , upper= 0.1),
   makeNumericParam("coverage",       lower= 0.1     , upper= 1.0),
   makeNumericParam("prob_corte",       lower= prob_min, upper= prob_max  )  #esto sera visto en clase en gran detalle
 )
 
-kdataset       <- "./datasets/dataset_3lags_doble_ratios_ajustado.csv.gz"
-ksemilla_azar  <- c(112333,223444)  #Aqui poner la propia semilla
-kexperimento   <- "bayesiana_final_1"
-ktraining      <- c( 202101,
-                     202012,
-                     202011,
-                     202010,
-                     202009,
-                     202008)   #periodos en donde entreno
+kdataset       <- "./datasets/dataset_2lags.csv.gz"
+ksemilla_azar  <- c(123456,
+                    445566,
+                    223354,
+                    546545,
+                    645455,
+                    456788,
+                    455668,
+                    999998,
+                    887777
+)  #Aqui poner la propia semilla
+kexperimento   <- "bayesiana_final_ultimo_mes"
+ktraining      <- c( 202101)   #periodos en donde entreno
 
 kPOS_ganancia  <- 78000
 kNEG_ganancia  <- -2000
@@ -163,7 +167,7 @@ EstimarGanancia_lightgbm  <- function( x )
     
     cantidad_semillas <- cantidad_semillas + 1
     
-    if (ganancia_semilla < 60000000 / kfolds) break
+    if (ganancia_semilla < 26500000 / kfolds) break
     
   }
   
